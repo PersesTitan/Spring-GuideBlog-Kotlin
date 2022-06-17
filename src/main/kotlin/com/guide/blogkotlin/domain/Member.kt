@@ -1,39 +1,33 @@
 package com.guide.blogkotlin.domain
 
 import lombok.Getter
-import lombok.NonNull
 import lombok.Setter
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
-@Entity @Getter
-class Member(nickName: String, loginId: String, password: String, email: String) {
+@Getter
+@Entity
+class Member(nickName: String, loginId: String, password: String) {
 
-    @Id @GeneratedValue
-    @Column(name = "member_id")
-    private var id:Long = 0
-
-    @Setter @NonNull
-    private var nickName: String
-    @Setter @NonNull
-    private var password: String
-
-    @NonNull
-    private val loginId: String
-    @NonNull
-    private val createDate: LocalDateTime
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id", nullable = false)
+    private var id: Long? = null
 
     @Setter
-    private var email: String = ""
+    private var nickName: String
+    @Setter
+    private var password: String
+    @Setter
+    private var email: String? = null
+
+    private var loginId: String
+    private var createDate: LocalDateTime
 
     init {
         this.nickName = nickName
         this.loginId = loginId
         this.password = password
-        this.email = email
         this.createDate = LocalDateTime.now()
     }
 }
